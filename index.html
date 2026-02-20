@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI战略规划 - 管理层汇报</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
+    </div>
+
+    <!-- Navigation Hints -->
+    <div class="nav-hints">
+        <span class="nav-hint">← → 键切换</span>
+        <span class="nav-hint">ESC 概览</span>
+    </div>
+
+    <!-- Slides Container -->
+    <div class="slides-container" id="slidesContainer">
+
+        <!-- Slide 1: Cover -->
+        <section class="slide active" data-slide="1">
+            <div class="slide-bg-particles"></div>
+            <div class="slide-content hero-slide">
+                <div class="hero-badge">管理层汇报</div>
+                <h1 class="hero-title">AI战略规划</h1>
+                <p class="hero-subtitle">从工具到伙伴，从成本到投资</p>
+                <p class="hero-desc">
+                    这不是一份技术方案，而是一份关于企业未来竞争力的商业提案<br>
+                    我们要回答三个问题：为什么要做？做成什么样？怎么做到？
+                </p>
+                <div class="hero-cta">
+                    <span class="start-hint">按 → 开始演示</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Why - Policy -->
+        <section class="slide" data-slide="2">
+            <div class="slide-content">
+                <div class="section-label">第一部分</div>
+                <h2 class="section-title">为什么现在必须行动？</h2>
+                <p class="section-subtitle">政策红利 + 竞争压力，双重驱动力</p>
+
+                <div class="why-grid">
+                    <!-- 国家层面 -->
+                    <div class="why-card national">
+                        <div class="why-card-header">
+                            <span class="why-icon">🇨🇳</span>
+                            <h3>国家战略层面</h3>
+                        </div>
+                        <div class="why-card-body">
+                            <div class="policy-timeline-chart">
+                                <canvas id="policyTimelineChart"></canvas>
+                            </div>
+                            <div class="policy-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">5000亿</span>
+                                    <span class="stat-label">AI核心产业规模目标</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">100%</span>
+                                    <span class="stat-label">算力目标年增长率</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 地方层面 -->
+                    <div class="why-card local">
+                        <div class="why-card-header">
+                            <span class="why-icon">🏛️</span>
+                            <h3>地方补贴政策</h3>
+                        </div>
+                        <div class="why-card-body">
+                            <div class="subsidy-map">
+                                <div class="subsidy-item">
+                                    <span class="subsidy-region">北京市</span>
+                                    <span class="subsidy-amount accent">最高3000万</span>
+                                </div>
+                                <div class="subsidy-item">
+                                    <span class="subsidy-region">上海市</span>
+                                    <span class="subsidy-amount accent">最高2000万</span>
+                                </div>
+                                <div class="subsidy-item">
+                                    <span class="subsidy-region">南京市</span>
+                                    <span class="subsidy-amount accent">最高1000万</span>
+                                </div>
+                                <div class="subsidy-item">
+                                    <span class="subsidy-region">杭州市</span>
+                                    <span class="subsidy-amount accent">最高800万</span>
+                                </div>
+                                <div class="subsidy-item">
+                                    <span class="subsidy-region">烟台市</span>
+                                    <span class="subsidy-amount accent">最高500万</span>
+                                </div>
+                                <div class="subsidy-item">
+                                    <span class="subsidy-region">深圳市</span>
+                                    <span class="subsidy-amount accent">最高500万</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 投资回报 -->
+                    <div class="why-card roi">
+                        <div class="why-card-header">
+                            <span class="why-icon">💰</span>
+                            <h3>政府补贴收益</h3>
+                        </div>
+                        <div class="why-card-body">
+                            <div class="subsidy-roi-chart">
+                                <canvas id="subsidyROIChart"></canvas>
+                            </div>
+                            <div class="roi-summary">
+                                <div class="roi-item">
+                                    <span class="roi-label">预计年补贴</span>
+                                    <span class="roi-value accent">60万+</span>
+                                </div>
+                                <div class="roi-item">
+                                    <span class="roi-label">投资回收期</span>
+                                    <span class="roi-value success">&lt;1年</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-bar">
+                    <span class="highlight-icon">⏰</span>
+                    <p><strong>政策窗口期有限</strong> — 各地政府争抢AI产业高地，先入者享受更大红利</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Maturity Model -->
+        <section class="slide" data-slide="3">
+            <div class="slide-content">
+                <div class="section-label">第一部分（续）</div>
+                <h2 class="section-title">AI成熟度五级模型</h2>
+                <p class="section-subtitle">借鉴CMMI框架，从"+AI"到"AI+"的演进阶梯</p>
+
+                <div class="current-state-display">
+                    <div class="maturity-pyramid">
+                        <div class="pyramid-level l5">
+                            <div class="pyramid-content">
+                                <span class="level-num">L5</span>
+                                <span class="level-name">认知引领</span>
+                            </div>
+                        </div>
+                        <div class="pyramid-level l4">
+                            <div class="pyramid-content">
+                                <span class="level-num">L4</span>
+                                <span class="level-name">生态重构</span>
+                            </div>
+                        </div>
+                        <div class="pyramid-level l3">
+                            <div class="pyramid-content">
+                                <span class="level-num">L3</span>
+                                <span class="level-name">体系优化</span>
+                            </div>
+                        </div>
+                        <div class="pyramid-level l2">
+                            <div class="pyramid-content">
+                                <span class="level-num">L2</span>
+                                <span class="level-name">局部赋能</span>
+                            </div>
+                        </div>
+                        <div class="pyramid-level l1 current">
+                            <div class="pyramid-content">
+                                <span class="level-num">L1</span>
+                                <span class="level-name">探索试验</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="maturity-detail">
+                        <div class="maturity-legend">
+                            <div class="legend-row">
+                                <span class="legend-dot" style="background: linear-gradient(135deg, #1a1a2e, #16213e);"></span>
+                                <span class="legend-text"><strong>L5 认知引领级</strong> - 跨行业创新应用，AI驱动企业自我进化</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="legend-dot" style="background: linear-gradient(135deg, #27ae60, #2ecc71);"></span>
+                                <span class="legend-text"><strong>L4 生态重构级</strong> - 行业赋能应用，向产业链输出AI能力</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="legend-dot" style="background: linear-gradient(135deg, #3498db, #5dade2);"></span>
+                                <span class="legend-text"><strong>L3 体系优化级</strong> - 企业内体系应用，标准化+可复用</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="legend-dot" style="background: linear-gradient(135deg, #9b59b6, #bb8fce);"></span>
+                                <span class="legend-text"><strong>L2 局部赋能级</strong> - 企业内多点应用，项目制推进</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="legend-dot" style="background: linear-gradient(135deg, #e74c3c, #ec7063);"></span>
+                                <span class="legend-text"><strong>L1 探索试验级</strong> - 企业内单点应用，自发零散</span>
+                            </div>
+                        </div>
+                        <div class="category-tag">
+                            <span class="tag-plus">+AI 企业级 (L1-L3)</span>
+                            <span class="tag-arrow">→</span>
+                            <span class="tag-ai">AI+ 行业级 (L4-L5)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="maturity-radar">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Competitor Comparison -->
+        <section class="slide" data-slide="4">
+            <div class="slide-content">
+                <div class="section-label">第一部分（续）</div>
+                <h2 class="section-title">领先企业：AI已从"探索"进入"实战"</h2>
+                <p class="section-subtitle">国际MNC药企和国内龙头早已将AI提升到战略高度</p>
+
+                <div class="enterprise-timeline">
+                    <div class="enterprise-group">
+                        <div class="group-header">
+                            <span class="group-icon">🌍</span>
+                            <span class="group-title">国际MNC药企（L3-L4阶段）</span>
+                        </div>
+                        <div class="enterprise-cards">
+                            <div class="enterprise-card">
+                                <div class="card-header">
+                                    <span class="company-logo">AZ</span>
+                                    <div class="company-info">
+                                        <span class="company-name">阿斯利康</span>
+                                        <span class="maturity-badge level-4">L4 生态重构</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>自研"AI开发代理(AIDA)"系统</li>
+                                        <li>目标：CMC开发时间<strong>缩短50%</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="enterprise-card">
+                                <div class="card-header">
+                                    <span class="company-logo">Pf</span>
+                                    <div class="company-info">
+                                        <span class="company-name">辉瑞</span>
+                                        <span class="maturity-badge level-3">L3 体系优化</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>与IBM Watson合作药物发现</li>
+                                        <li>AI辅助免疫肿瘤药物研发</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="enterprise-card">
+                                <div class="card-header">
+                                    <span class="company-logo">Ro</span>
+                                    <div class="company-info">
+                                        <span class="company-name">罗氏</span>
+                                        <span class="maturity-badge level-4">L4 生态重构</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>建立全球AI研发中心</li>
+                                        <li>深度学习预测患者反应</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="enterprise-group">
+                        <div class="group-header">
+                            <span class="group-icon">🇨🇳</span>
+                            <span class="group-title">国内龙头药企（L2-L3阶段）</span>
+                        </div>
+                        <div class="enterprise-cards">
+                            <div class="enterprise-card domestic">
+                                <div class="card-header">
+                                    <span class="company-logo">复</span>
+                                    <div class="company-info">
+                                        <span class="company-name">复星医药</span>
+                                        <span class="maturity-badge level-3">L3 体系优化</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>"投、研、推"三步走策略</li>
+                                        <li>AI药物发现平台投入运营</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="enterprise-card domestic">
+                                <div class="card-header">
+                                    <span class="company-logo">恒</span>
+                                    <div class="company-info">
+                                        <span class="company-name">恒瑞医药</span>
+                                        <span class="maturity-badge level-2">L2 局部赋能</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>建立内部AI研发平台</li>
+                                        <li>与AI公司合作化合物筛选</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="enterprise-card domestic">
+                                <div class="card-header">
+                                    <span class="company-logo">药</span>
+                                    <div class="company-info">
+                                        <span class="company-name">药明康德</span>
+                                        <span class="maturity-badge level-3">L3 体系优化</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Chemistry42 AI平台商业化</li>
+                                        <li>AI辅助药物设计服务客户</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitor Comparison Chart -->
+                    <div class="competitor-chart">
+                        <canvas id="competitorChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Where We Go -->
+        <section class="slide" data-slide="5">
+            <div class="slide-content">
+                <div class="section-label">第三部分</div>
+                <h2 class="section-title">我们要去哪里？</h2>
+                <p class="section-subtitle">不是一步登天，而是分阶段、有节奏地推进</p>
+
+                <div class="roadmap">
+                    <div class="roadmap-track"></div>
+                    <div class="roadmap-item" data-phase="1">
+                        <div class="roadmap-marker">L1</div>
+                        <div class="roadmap-content">
+                            <h4>探索试验级</h4>
+                            <p>单点应用</p>
+                            <ul>
+                                <li>自发零散尝试</li>
+                                <li>孤立项目</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-item" data-phase="2">
+                        <div class="roadmap-marker">L2</div>
+                        <div class="roadmap-content">
+                            <h4>局部赋能级</h4>
+                            <p>多点应用</p>
+                            <ul>
+                                <li>项目制推进</li>
+                                <li>特定场景落地</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-item" data-phase="3">
+                        <div class="roadmap-marker">L3</div>
+                        <div class="roadmap-content">
+                            <h4>体系优化级</h4>
+                            <p>体系化应用</p>
+                            <ul>
+                                <li>统一平台建设</li>
+                                <li>数据治理体系</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-item" data-phase="4">
+                        <div class="roadmap-marker">L4</div>
+                        <div class="roadmap-content">
+                            <h4>生态重构级</h4>
+                            <p>行业赋能</p>
+                            <ul>
+                                <li>向产业链输出</li>
+                                <li>重构协作模式</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-item" data-phase="5">
+                        <div class="roadmap-marker">L5</div>
+                        <div class="roadmap-content">
+                            <h4>认知引领级</h4>
+                            <p>跨行业创新</p>
+                            <ul>
+                                <li>自我进化</li>
+                                <li>持续创新</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-chart">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: How -->
+        <section class="slide" data-slide="6">
+            <div class="slide-content">
+                <div class="section-label">第四部分</div>
+                <h2 class="section-title">我们准备怎么做？</h2>
+                <p class="section-subtitle">四大原则确保战略落地</p>
+
+                <div class="principles-grid">
+                    <div class="principle-card">
+                        <div class="principle-number">01</div>
+                        <div class="principle-icon">🎯</div>
+                        <h4>场景驱动</h4>
+                        <p>而非技术驱动，从业务痛点出发选择技术方案</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-number">02</div>
+                        <div class="principle-icon">🛡️</div>
+                        <h4>风险管理</h4>
+                        <p>先管风险，再谈创新，合规是底线</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-number">03</div>
+                        <div class="principle-icon">🚀</div>
+                        <h4>敏捷迭代</h4>
+                        <p>小步快跑，边用边建，快速验证</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-number">04</div>
+                        <div class="principle-icon">📊</div>
+                        <h4>ROI导向</h4>
+                        <p>投入产出，同步评估，价值可视化</p>
+                    </div>
+                </div>
+
+                <div class="success-factors">
+                    <h3>关键成功因素</h3>
+                    <div class="factors-chart">
+                        <canvas id="factorsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="quote-block">
+                    <p>战略不是选择做什么，而是选择不做什么。我们在正确的方向上持续投入，建立别人短期内无法复制的优势。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Investment -->
+        <section class="slide" data-slide="7">
+            <div class="slide-content">
+                <div class="section-label">第五部分</div>
+                <h2 class="section-title">投入多少？能换来什么？</h2>
+                <p class="section-subtitle">清晰的财务测算，可量化的业务价值</p>
+
+                <div class="investment-display">
+                    <div class="investment-pie">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                    <div class="investment-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #3498db;"></span>
+                            <div class="legend-text">
+                                <span class="legend-label">数据治理平台</span>
+                                <span class="legend-desc">MDM、数据仓库建设</span>
+                            </div>
+                            <span class="legend-amount">80万</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #e74c3c;"></span>
+                            <div class="legend-text">
+                                <span class="legend-label">AIDD研发算力</span>
+                                <span class="legend-desc">HPC服务器、算法平台</span>
+                            </div>
+                            <span class="legend-amount">80万/年</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #f39c12;"></span>
+                            <div class="legend-text">
+                                <span class="legend-label">AI开发平台</span>
+                                <span class="legend-desc">PaaS平台搭建</span>
+                            </div>
+                            <span class="legend-amount">60万</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #27ae60;"></span>
+                            <div class="legend-text">
+                                <span class="legend-label">大模型算力</span>
+                                <span class="legend-desc">GPU一体机基础设施</span>
+                            </div>
+                            <span class="legend-amount">50万</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #9b59b6;"></span>
+                            <div class="legend-text">
+                                <span class="legend-label">办公入口+API</span>
+                                <span class="legend-desc">飞书/钉钉+外部调用</span>
+                            </div>
+                            <span class="legend-amount">28万/年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-display">
+                    <div class="roi-card">
+                        <div class="roi-label">首年总投入</div>
+                        <div class="roi-value accent">350<span class="roi-unit">万</span></div>
+                    </div>
+                    <div class="roi-arrow">→</div>
+                    <div class="roi-card">
+                        <div class="roi-label">直接收益</div>
+                        <div class="roi-value success">420<span class="roi-unit">万/年</span></div>
+                    </div>
+                </div>
+
+                <div class="value-cards">
+                    <div class="value-card">
+                        <span class="value-icon">⏱️</span>
+                        <h4>人效提升</h4>
+                        <p>200人试点，每人每天节省20分钟，相当于增加<strong>14人年</strong>工作量</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">💰</span>
+                        <h4>成本节省</h4>
+                        <p>延缓人员扩张节奏，降低人力成本增长速度</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">🛡️</span>
+                        <h4>风险降低</h4>
+                        <p>统一治理机制，消除数据安全和合规风险</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Conclusion -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                <div class="section-label">总结</div>
+                <h2 class="section-title">这不是成本中心的投资</h2>
+                <p class="section-subtitle">而是未来竞争力的押注</p>
+
+                <div class="roi-chart-final">
+                    <canvas id="roiChart"></canvas>
+                </div>
+
+                <div class="key-message">
+                    <p>350万买的是一个可能性——让企业在未来五年保持领先的可能性</p>
+                </div>
+
+                <div class="closing-cta">
+                    <h3>下一步行动</h3>
+                    <ul>
+                        <li>成立AI战略筹备小组</li>
+                        <li>选择3个高频场景作为试点</li>
+                        <li>启动政府补贴申请流程</li>
+                    </ul>
+                </div>
+
+                <div class="thank-you">
+                    <p>谢谢聆听</p>
+                    <span class="company">AI战略规划 · 管理层汇报</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Overview Modal -->
+    <div class="overview-modal" id="overviewModal">
+        <div class="overview-content">
+            <h2>幻灯片概览</h2>
+            <div class="overview-grid" id="overviewGrid"></div>
+        </div>
+    </div>
+
+    <!-- Slide Navigation -->
+    <div class="slide-nav">
+        <button class="nav-btn prev" id="prevBtn" aria-label="上一页">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <button class="nav-btn next" id="nextBtn" aria-label="下一页">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

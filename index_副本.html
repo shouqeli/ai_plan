@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI战略规划 - 管理层汇报</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f2744;
+            --primary-light: #1a3a5c;
+            --accent: #c9a227;
+            --accent-light: #e0b840;
+            --text: #2c3e50;
+            --text-light: #5a6c7d;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --border: #e8ecf1;
+            --success: #27ae60;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 39, 68, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0 3rem;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: all 0.3s;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section with Animation */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2744 0%, #1a3a5c 50%, #0f2744 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(201, 162, 39, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 1;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.6rem 2rem;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 6px;
+            line-height: 1.3;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            line-height: 2.2;
+            opacity: 0.85;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent);
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--white);
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Stat Cards with Counter Animation */
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value.accent {
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        .chart-wrapper.radar {
+            height: 400px;
+        }
+
+        /* Maturity Pyramid */
+        .maturity-pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 3rem 0;
+        }
+
+        .pyramid-level {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            color: var(--white);
+            font-weight: 600;
+            position: relative;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+        .pyramid-level:hover {
+            transform: scale(1.05);
+        }
+
+        .pyramid-level.l4 {
+            width: 200px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            height: 100px;
+        }
+
+        .pyramid-level.l3 {
+            width: 320px;
+            background: linear-gradient(135deg, #3498db 0%, #5dade2 100%);
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        }
+
+        .pyramid-level.l2 {
+            width: 440px;
+            background: linear-gradient(135deg, #9b59b6 0%, #bb8fce 100%);
+            clip-path: polygon(7% 0%, 93% 0%, 100% 100%, 0% 100%);
+        }
+
+        .pyramid-level.l1 {
+            width: 560px;
+            background: linear-gradient(135deg, #e74c3c 0%, #ec7063 100%);
+            clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+        }
+
+        .pyramid-level.active {
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .pyramid-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .pyramid-level.l4 .pyramid-content { padding-top: 30px; }
+
+        .pyramid-level .level-num {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .pyramid-level .level-name {
+            font-size: 1.1rem;
+        }
+
+        /* Progress Timeline */
+        .progress-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 4rem 0;
+            padding: 0 2rem;
+        }
+
+        .progress-timeline::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(to right, var(--danger) 0%, var(--warning) 33%, var(--success) 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timeline-node:hover {
+            transform: scale(1.1);
+        }
+
+        .node-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .timeline-node:nth-child(1) .node-circle { background: var(--danger); }
+        .timeline-node:nth-child(2) .node-circle { background: var(--warning); }
+        .timeline-node:nth-child(3) .node-circle { background: var(--success); }
+
+        .node-label {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .node-period {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        /* Comparison Cards */
+        .comparison-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .comparison-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .comparison-card.now::before { background: var(--danger); }
+        .comparison-card.future::before { background: var(--success); }
+
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .comparison-card.now .comparison-icon { background: rgba(231, 76, 60, 0.1); }
+        .comparison-card.future .comparison-icon { background: rgba(39, 174, 96, 0.1); }
+
+        .comparison-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .comparison-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px dashed var(--border);
+            font-size: 0.95rem;
+        }
+
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-list li::before {
+            content: '✕';
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .comparison-card.future .comparison-list li::before {
+            content: '✓';
+            color: var(--success);
+        }
+
+        /* ROI Calculator */
+        .roi-calculator {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            color: var(--white);
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roi-calculator::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.2) 0%, transparent 70%);
+        }
+
+        .roi-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .roi-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .roi-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .roi-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .roi-arrow {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Policy Showcase */
+        .policy-showcase {
+            margin: 3rem 0;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .policy-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .policy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+        }
+
+        .policy-badge {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.3rem 1rem;
+            background: var(--accent);
+            border-radius: 50px;
+        }
+
+        .policy-amount {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .policy-screenshot {
+            padding: 1.5rem;
+            background: #f8f9fa;
+        }
+
+        .screenshot-placeholder {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #e8ecf1 0%, #f0f2f5 100%);
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .screenshot-placeholder span {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .screenshot-placeholder small {
+            opacity: 0.7;
+        }
+
+        .policy-desc {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .policy-desc p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .policy-summary {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #fff8e6 0%, #fff3d6 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .summary-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        /* Enterprise Timeline */
+        .enterprise-timeline {
+            margin: 3rem 0;
+        }
+
+        .timeline-track {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .enterprise-group {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .group-icon {
+            font-size: 1.5rem;
+        }
+
+        .group-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .enterprise-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .enterprise-card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .enterprise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+
+        .enterprise-card.domestic {
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border-left: 4px solid var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .company-logo {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .enterprise-card.domestic .company-logo {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--primary);
+        }
+
+        .company-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .company-name {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .maturity-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 0.3rem;
+            width: fit-content;
+        }
+
+        .maturity-badge.level-4 {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .maturity-badge.level-3 {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .maturity-badge.level-2 {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .card-body {
+            flex: 1;
+        }
+
+        .card-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card-body li {
+            padding: 0.5rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.6;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .card-body li:last-child {
+            border-bottom: none;
+        }
+
+        .card-body li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .card-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .status {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Story Block */
+        .story-block {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+        }
+
+        .story-block h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .story-block p {
+            color: var(--text);
+            font-size: 1rem;
+            line-height: 1.9;
+            margin-bottom: 0.8rem;
+        }
+
+        .story-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Feature Cards with Icons */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover::after {
+            width: 80%;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+            position: relative;
+        }
+
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 2px dashed var(--accent);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Investment Breakdown */
+        .investment-chart {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .pie-chart-wrapper {
+            flex: 0 0 300px;
+            height: 300px;
+            position: relative;
+        }
+
+        .pie-legend {
+            flex: 1;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: var(--white);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .legend-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            flex: 1;
+        }
+
+        .legend-label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .legend-value {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .legend-amount {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        /* Quote Block */
+        .quote-block {
+            background: var(--primary);
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .quote-block::before {
+            content: '"';
+            font-size: 8rem;
+            color: var(--accent);
+            opacity: 0.2;
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .quote-block p {
+            font-size: 1.4rem;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            margin-top: 1.5rem;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        /* Risk Warning */
+        .risk-alert {
+            background: linear-gradient(135deg, #fff8e6 0%, #fff3d6 100%);
+            border-left: 4px solid var(--accent);
+            padding: 2rem;
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .risk-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .risk-content h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .risk-content p {
+            color: var(--text);
+            line-height: 1.9;
+        }
+
+        /* Animated Counter */
+        .counter-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .counter-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .counter-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .counter-unit {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .counter-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .footer p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .section { padding: 4rem 1.5rem; }
+            .stat-cards,
+            .counter-section,
+            .roi-grid,
+            .feature-grid { grid-template-columns: repeat(2, 1fr); }
+            .comparison-section { grid-template-columns: 1fr; }
+            .investment-chart { flex-direction: column; }
+            .progress-timeline { flex-direction: column; gap: 2rem; }
+            .progress-timeline::before { display: none; }
+            .policy-grid { grid-template-columns: 1fr; }
+            .enterprise-cards { grid-template-columns: 1fr; }
+            .timeline-track { gap: 2rem; }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.8rem; }
+            .stat-cards,
+            .counter-section,
+            .roi-grid,
+            .feature-grid { grid-template-columns: 1fr; }
+            .pyramid-level.l1 { width: 100%; }
+            .pyramid-level.l2 { width: 80%; }
+            .pyramid-level.l3 { width: 60%; }
+            .pyramid-level.l4 { width: 40%; }
+            .policy-summary { flex-direction: column; text-align: center; }
+            .enterprise-group { padding: 1.5rem; }
+            .story-block { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="logo">AI战略规划</div>
+            <ul class="nav-links">
+                <li><a href="#why">为什么</a></li>
+                <li><a href="#where">在哪里</a></li>
+                <li><a href="#where-to">去哪里</a></li>
+                <li><a href="#how">怎么做</a></li>
+                <li><a href="#invest">投入与回报</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">管理层汇报</div>
+            <h1>AI战略规划</h1>
+            <p class="hero-subtitle">从工具到伙伴，从成本到投资</p>
+            <p class="hero-desc">这不是一份技术方案，而是一份关于企业未来竞争力的商业提案<br>我们要回答三个问题：为什么要做？做成什么样？怎么做到？</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- WHY Section -->
+    <section id="why" class="section section-alt">
+        <div class="section-header reveal">
+            <div class="section-label">第一部分</div>
+            <h2 class="section-title">为什么现在必须行动？</h2>
+            <p class="section-subtitle">不是追赶潮流，而是应对正在发生的竞争格局变化</p>
+        </div>
+
+        <!-- 1. 国家政策支持 -->
+        <div class="story-block reveal">
+            <h3>📋 国家政策：真金白银的资金支持</h3>
+            <p>人工智能已被纳入国家核心发展战略，"人工智能+实体经济"是明确方向。更重要的是，各地政府正在拿出<strong>真金白银</strong>支持企业智能化转型——这不是口号，是实实在在的补贴。</p>
+        </div>
+
+        <!-- 地方政策截图展示区 -->
+        <div class="policy-showcase reveal">
+            <div class="policy-grid">
+                <div class="policy-card">
+                    <div class="policy-header">
+                        <span class="policy-badge">烟台市</span>
+                        <span class="policy-amount">最高500万</span>
+                    </div>
+                    <div class="policy-screenshot">
+                        <div class="screenshot-placeholder">
+                            <span>📸 烟台市政府AI资金补贴政策截图</span>
+                            <small>请插入搜索到的政策页面截图</small>
+                        </div>
+                    </div>
+                    <div class="policy-desc">
+                        <p>烟台市对人工智能产业给予<strong>设备补贴、研发投入补助、人才引进奖励</strong>等多重支持，企业智能化改造项目最高可获得500万元资金支持。</p>
+                    </div>
+                </div>
+                <div class="policy-card">
+                    <div class="policy-header">
+                        <span class="policy-badge">南京市</span>
+                        <span class="policy-amount">最高1000万</span>
+                    </div>
+                    <div class="policy-screenshot">
+                        <div class="screenshot-placeholder">
+                            <span>📸 南京市政府AI产业扶持政策截图</span>
+                            <small>请插入搜索到的政策页面截图</small>
+                        </div>
+                    </div>
+                    <div class="policy-desc">
+                        <p>南京市将人工智能列为重点发展的先导产业，对AI产业化项目给予<strong>最高1000万元资助</strong>，并提供算力补贴、数据开放等配套支持。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="policy-summary">
+                <div class="summary-icon">💡</div>
+                <div class="summary-text">
+                    <strong>政策窗口期：</strong>各地政府正在争抢AI产业高地，补贴力度空前。我们越早布局，越能抓住政策红利期，降低自身投入成本。预计每年可获得<strong>60万+</strong>政府补贴收入。
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 领先企业AI布局 -->
+        <div class="story-block reveal">
+            <h3>🏢 领先企业：AI已从"探索"进入"实战"</h3>
+            <p>国际MNC药企和国内龙头早已将AI提升到战略高度，他们不是在"试水"，而是在<strong>全面布局</strong>。看看他们的进展，就知道我们落后了多少。</p>
+        </div>
+
+        <!-- 企业案例时间轴 -->
+        <div class="enterprise-timeline reveal">
+            <div class="timeline-track">
+                <!-- 国际MNC -->
+                <div class="enterprise-group">
+                    <div class="group-header">
+                        <span class="group-icon">🌍</span>
+                        <span class="group-title">国际MNC药企（L3-L4阶段）</span>
+                    </div>
+                    <div class="enterprise-cards">
+                        <div class="enterprise-card">
+                            <div class="card-header">
+                                <span class="company-logo">AZ</span>
+                                <div class="company-info">
+                                    <span class="company-name">阿斯利康</span>
+                                    <span class="maturity-badge level-4">L4 智能运营</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>自研"AI开发代理(AIDA)"系统</li>
+                                    <li>目标：CMC开发时间<strong>缩短50%</strong></li>
+                                    <li>AI已嵌入核心业务流程</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status">战略级部署</span>
+                            </div>
+                        </div>
+                        <div class="enterprise-card">
+                            <div class="card-header">
+                                <span class="company-logo">Pf</span>
+                                <div class="company-info">
+                                    <span class="company-name">辉瑞</span>
+                                    <span class="maturity-badge level-3">L3 流程融合</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>与IBM Watson合作药物发现</li>
+                                    <li>AI辅助免疫肿瘤药物研发</li>
+                                    <li>数字化临床试验平台</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status">全面应用</span>
+                            </div>
+                        </div>
+                        <div class="enterprise-card">
+                            <div class="card-header">
+                                <span class="company-logo">Ro</span>
+                                <div class="company-info">
+                                    <span class="company-name">罗氏</span>
+                                    <span class="maturity-badge level-4">L4 智能运营</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>建立全球AI研发中心</li>
+                                    <li>深度学习预测患者反应</li>
+                                    <li>个性化医疗解决方案</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status">深度整合</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 国内药企 -->
+                <div class="enterprise-group">
+                    <div class="group-header">
+                        <span class="group-icon">🇨🇳</span>
+                        <span class="group-title">国内龙头药企（L2-L3阶段）</span>
+                    </div>
+                    <div class="enterprise-cards">
+                        <div class="enterprise-card domestic">
+                            <div class="card-header">
+                                <span class="company-logo">复</span>
+                                <div class="company-info">
+                                    <span class="company-name">复星医药</span>
+                                    <span class="maturity-badge level-3">L3 流程融合</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>"投、研、推"三步走策略</li>
+                                    <li>AI药物发现平台投入运营</li>
+                                    <li>多个AI研发管线推进中</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status">规模化应用</span>
+                            </div>
+                        </div>
+                        <div class="enterprise-card domestic">
+                            <div class="card-header">
+                                <span class="company-logo">恒</span>
+                                <div class="company-info">
+                                    <span class="company-name">恒瑞医药</span>
+                                    <span class="maturity-badge level-2">L2 统一平台</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>建立内部AI研发平台</li>
+                                    <li>与AI公司合作化合物筛选</li>
+                                    <li>临床数据智能化分析</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status">平台建设期</span>
+                            </div>
+                        </div>
+                        <div class="enterprise-card domestic">
+                            <div class="card-header">
+                                <span class="company-logo">药</span>
+                                <div class="company-info">
+                                    <span class="company-name">药明康德</span>
+                                    <span class="maturity-badge level-3">L3 流程融合</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Chemistry42 AI平台商业化</li>
+                                    <li>AI辅助药物设计服务客户</li>
+                                    <li>智能化实验室运营</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status">服务输出</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 竞争态势对比 -->
+        <div class="chart-container reveal">
+            <div class="chart-title">行业AI布局竞争态势：我们落后多少？</div>
+            <div class="chart-wrapper">
+                <canvas id="competitorChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Market Pressure Stats -->
+        <div class="stat-cards reveal">
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value" data-target="50">0</div>
+                <div class="stat-unit">%</div>
+                <div class="stat-label">阿斯利康CMC开发时间缩短目标</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏢</div>
+                <div class="stat-value accent" data-target="100">0</div>
+                <div class="stat-unit">%</div>
+                <div class="stat-label">复星医药AI三步走推进中</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value" data-target="2">0</div>
+                <div class="stat-unit">倍速</div>
+                <div class="stat-label">头部企业研发效率提升预期</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏰</div>
+                <div class="stat-value accent" data-target="5">0</div>
+                <div class="stat-unit">年</div>
+                <div class="stat-label">落后窗口期正在快速关闭</div>
+            </div>
+        </div>
+
+        <!-- Risk Alert -->
+        <div class="risk-alert reveal">
+            <div class="risk-icon">⚠️</div>
+            <div class="risk-content">
+                <h4>如果不改变，我们将面临什么？</h4>
+                <p><strong>人效差距：</strong>竞争对手用AI一个人干三个人的活，我们用传统方式三个人干一个人的活。<strong>人才流失：</strong>年轻员工希望用先进工具工作，没有AI能力支撑，我们吸引和保留人才会越来越难。<strong>知识断层：</strong>核心员工离职带走的不只是人，还有他脑子里那些用AI积累的方法和经验。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHERE Section -->
+    <section id="where" class="section">
+        <div class="section-header reveal">
+            <div class="section-label">第二部分</div>
+            <h2 class="section-title">我们现在在哪里？</h2>
+            <p class="section-subtitle">认清现实是制定正确战略的前提</p>
+        </div>
+
+        <!-- Maturity Pyramid -->
+        <div class="maturity-pyramid reveal">
+            <div class="pyramid-level l4">
+                <div class="pyramid-content">
+                    <span class="level-num">L4</span>
+                    <span class="level-name">智能运营</span>
+                </div>
+            </div>
+            <div class="pyramid-level l3">
+                <div class="pyramid-content">
+                    <span class="level-num">L3</span>
+                    <span class="level-name">流程融合</span>
+                </div>
+            </div>
+            <div class="pyramid-level l2">
+                <div class="pyramid-content">
+                    <span class="level-num">L2</span>
+                    <span class="level-name">统一平台</span>
+                </div>
+            </div>
+            <div class="pyramid-level l1 active">
+                <div class="pyramid-content">
+                    <span class="level-num">L1</span>
+                    <span class="level-name">零散使用 ← 我们在这里</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maturity Radar Chart -->
+        <div class="chart-container reveal">
+            <div class="chart-title">AI成熟度维度分析</div>
+            <div class="chart-wrapper radar">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Comparison Cards -->
+        <div class="comparison-section reveal">
+            <div class="comparison-card now">
+                <div class="comparison-header">
+                    <div class="comparison-icon">😰</div>
+                    <div>
+                        <div class="comparison-title">当前状态：L1 零散使用</div>
+                        <div class="comparison-subtitle">个人游击战阶段</div>
+                    </div>
+                </div>
+                <ul class="comparison-list">
+                    <li>员工个人行为，没有统一管理</li>
+                    <li>知识分散在个人电脑和脑海里</li>
+                    <li>没有数据安全和合规管控</li>
+                    <li>成果无法沉淀和复用</li>
+                    <li>投入产出无法衡量</li>
+                </ul>
+            </div>
+            <div class="comparison-card future">
+                <div class="comparison-header">
+                    <div class="comparison-icon">🎯</div>
+                    <div>
+                        <div class="comparison-title">目标状态：L4 智能运营</div>
+                        <div class="comparison-subtitle">企业核心竞争力</div>
+                    </div>
+                </div>
+                <ul class="comparison-list">
+                    <li>AI成为企业核心能力</li>
+                    <li>知识资产统一管理和传承</li>
+                    <li>全流程合规可控</li>
+                    <li>能力持续沉淀和优化</li>
+                    <li>投入产出清晰可量化</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHERE TO Section -->
+    <section id="where-to" class="section section-alt">
+        <div class="section-header reveal">
+            <div class="section-label">第三部分</div>
+            <h2 class="section-title">我们要去哪里？</h2>
+            <p class="section-subtitle">不是一步登天，而是分阶段、有节奏地推进</p>
+        </div>
+
+        <!-- Progress Timeline -->
+        <div class="progress-timeline reveal">
+            <div class="timeline-node">
+                <div class="node-circle">L1</div>
+                <div class="node-label">零散使用</div>
+                <div class="node-period">现在</div>
+            </div>
+            <div class="timeline-node">
+                <div class="node-circle">L2</div>
+                <div class="node-label">统一平台</div>
+                <div class="node-period">0-12个月</div>
+            </div>
+            <div class="timeline-node">
+                <div class="node-circle">L3</div>
+                <div class="node-label">流程融合</div>
+                <div class="node-period">12-20个月</div>
+            </div>
+            <div class="timeline-node">
+                <div class="node-circle">L4</div>
+                <div class="node-label">智能运营</div>
+                <div class="node-period">3-5年</div>
+            </div>
+        </div>
+
+        <!-- Phase Detail Cards -->
+        <div class="feature-grid reveal">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">第一阶段：从混乱到规范</div>
+                <div class="feature-desc">把"个人游击战"变成"正规军"。建立统一平台，让员工有合规渠道使用AI；组建专门团队；选择3-5个高频场景试点。</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">第二阶段：从试点到体系</div>
+                <div class="feature-desc">"铺开来"。把成功场景推广到更多部门，建立数据治理体系，让AI嵌入业务流程，成为日常工作的一部分。</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👑</div>
+                <div class="feature-title">第三阶段：从工具到壁垒</div>
+                <div class="feature-desc">AI成为核心竞争力。通过持续积累，形成独有的数据资产和流程优化经验，构建真正的护城河。</div>
+            </div>
+        </div>
+
+        <!-- Implementation Timeline Chart -->
+        <div class="chart-container reveal">
+            <div class="chart-title">实施路线图与里程碑</div>
+            <div class="chart-wrapper">
+                <canvas id="timelineChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW Section -->
+    <section id="how" class="section">
+        <div class="section-header reveal">
+            <div class="section-label">第四部分</div>
+            <h2 class="section-title">我们准备怎么做？</h2>
+            <p class="section-subtitle">四大原则确保战略落地</p>
+        </div>
+
+        <!-- Strategy Cards -->
+        <div class="counter-section reveal">
+            <div class="counter-box">
+                <div class="counter-number">01</div>
+                <div class="counter-label">场景驱动，而非技术驱动</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-number">02</div>
+                <div class="counter-label">先管风险，再谈创新</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-number">03</div>
+                <div class="counter-label">小步快跑，边用边建</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-number">04</div>
+                <div class="counter-label">投入产出，同步评估</div>
+            </div>
+        </div>
+
+        <!-- Success Factors Chart -->
+        <div class="chart-container reveal">
+            <div class="chart-title">关键成功因素权重分析</div>
+            <div class="chart-wrapper">
+                <canvas id="successChart"></canvas>
+            </div>
+        </div>
+
+        <div class="quote-block reveal">
+            <p>战略不是选择做什么，而是选择不做什么。我们要做的不是追新求异，而是在正确的方向上持续投入，建立别人短期内无法复制的优势。</p>
+            <div class="quote-author">— 战略定位</div>
+        </div>
+    </section>
+
+    <!-- INVEST Section -->
+    <section id="invest" class="section section-alt">
+        <div class="section-header reveal">
+            <div class="section-label">第五部分</div>
+            <h2 class="section-title">投入多少？能换来什么？</h2>
+            <p class="section-subtitle">清晰的财务测算，可量化的业务价值</p>
+        </div>
+
+        <!-- Investment Breakdown -->
+        <div class="investment-chart reveal">
+            <div class="pie-chart-wrapper">
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="pie-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <div class="legend-text">
+                        <div class="legend-label">数据治理平台</div>
+                        <div class="legend-value">MDM、数据仓库建设</div>
+                    </div>
+                    <div class="legend-amount">80万</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <div class="legend-text">
+                        <div class="legend-label">AIDD研发算力</div>
+                        <div class="legend-value">HPC服务器、算法平台</div>
+                    </div>
+                    <div class="legend-amount">80万/年</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f39c12;"></div>
+                    <div class="legend-text">
+                        <div class="legend-label">AI开发平台</div>
+                        <div class="legend-value">PaaS平台搭建</div>
+                    </div>
+                    <div class="legend-amount">60万</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #27ae60;"></div>
+                    <div class="legend-text">
+                        <div class="legend-label">大模型算力</div>
+                        <div class="legend-value">GPU一体机基础设施</div>
+                    </div>
+                    <div class="legend-amount">50万</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9b59b6;"></div>
+                    <div class="legend-text">
+                        <div class="legend-label">办公入口+API</div>
+                        <div class="legend-value">飞书/钉钉+外部调用</div>
+                    </div>
+                    <div class="legend-amount">28万/年</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Calculator -->
+        <div class="roi-calculator reveal">
+            <div class="roi-title">投资回报测算（12个月）</div>
+            <div class="roi-grid">
+                <div class="roi-item">
+                    <div class="roi-value" data-target="350">0</div>
+                    <div class="roi-unit">万元</div>
+                    <div class="roi-label">总投入</div>
+                </div>
+                <div class="roi-item" style="display: flex; align-items: center; justify-content: center;">
+                    <div class="roi-arrow">→</div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-value" data-target="420">0</div>
+                    <div class="roi-unit">万元/年</div>
+                    <div class="roi-label">直接收益（人效提升）</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Value Cards -->
+        <div class="feature-grid reveal">
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <div class="feature-title">人效提升</div>
+                <div class="feature-desc">以200人试点计算，每人每天节省20分钟，相当于增加<strong>14人年</strong>的工作量，按人均成本30万计算，价值420万/年</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-title">成本节省</div>
+                <div class="feature-desc">通过效率提升延缓人员扩张节奏，降低人力成本增长速度，实现组织能力的复利效应</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title">风险降低</div>
+                <div class="feature-desc">建立统一治理机制，消除数据安全和合规风险，避免潜在损失，保护企业核心资产</div>
+            </div>
+        </div>
+
+        <!-- ROI Trend Chart -->
+        <div class="chart-container reveal">
+            <div class="chart-title">累计投入产出趋势（5年）</div>
+            <div class="chart-wrapper">
+                <canvas id="roiChart"></canvas>
+            </div>
+        </div>
+
+        <div class="quote-block reveal">
+            <p>这不是成本中心的投资，而是未来竞争力的押注。350万买的是一个可能性——让企业在未来五年保持领先的可能性。</p>
+            <div class="quote-author">— 投资建议</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>AI战略规划 · 管理层汇报材料 · 机密</p>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Reveal animation on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-value[data-target], .roi-value[data-target]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(counter);
+            });
+        }
+        animateCounters();
+
+        // Chart.js configurations
+        const chartColors = {
+            primary: '#0f2744',
+            accent: '#c9a227',
+            success: '#27ae60',
+            warning: '#e67e22',
+            danger: '#e74c3c',
+            info: '#3498db',
+            purple: '#9b59b6'
+        };
+
+        // Competitor Comparison Chart
+        const competitorCtx = document.getElementById('competitorChart');
+        if (competitorCtx) {
+            new Chart(competitorCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['我们', '行业平均', '复星医药', '阿斯利康'],
+                    datasets: [{
+                        label: 'AI成熟度评分',
+                        data: [25, 45, 70, 85],
+                        backgroundColor: [
+                            chartColors.danger,
+                            chartColors.warning,
+                            chartColors.info,
+                            chartColors.success
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Radar Chart for Maturity Analysis
+        const radarCtx = document.getElementById('radarChart');
+        if (radarCtx) {
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['战略规划', '组织能力', '数据基础', '技术应用', '流程融合', '治理体系'],
+                    datasets: [{
+                        label: '当前状态',
+                        data: [20, 30, 25, 35, 15, 20],
+                        backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                        borderColor: chartColors.danger,
+                        pointBackgroundColor: chartColors.danger
+                    }, {
+                        label: '目标状态（L2）',
+                        data: [70, 75, 70, 80, 60, 75],
+                        backgroundColor: 'rgba(39, 174, 96, 0.2)',
+                        borderColor: chartColors.success,
+                        pointBackgroundColor: chartColors.success
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Timeline Chart
+        const timelineCtx = document.getElementById('timelineChart');
+        if (timelineCtx) {
+            new Chart(timelineCtx, {
+                type: 'line',
+                data: {
+                    labels: ['现在', '3个月', '6个月', '12个月', '18个月', '3年', '5年'],
+                    datasets: [{
+                        label: '成熟度等级',
+                        data: [1, 1.3, 1.6, 2, 2.5, 3.2, 4],
+                        borderColor: chartColors.accent,
+                        backgroundColor: 'rgba(201, 162, 39, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointBackgroundColor: chartColors.primary
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 5,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'L' + value;
+                                }
+                            },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Success Factors Chart
+        const successCtx = document.getElementById('successChart');
+        if (successCtx) {
+            new Chart(successCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['高层支持', '业务场景', '数据质量', '技术平台', '组织变革', '持续运营'],
+                    datasets: [{
+                        data: [25, 20, 15, 15, 15, 10],
+                        backgroundColor: [
+                            chartColors.primary,
+                            chartColors.accent,
+                            chartColors.success,
+                            chartColors.info,
+                            chartColors.purple,
+                            chartColors.warning
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { padding: 20 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Pie Chart for Investment
+        const pieCtx = document.getElementById('pieChart');
+        if (pieCtx) {
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['数据治理', 'AIDD研发', 'AI平台', '大模型算力', '办公入口+API'],
+                    datasets: [{
+                        data: [80, 80, 60, 50, 28],
+                        backgroundColor: [
+                            '#3498db',
+                            '#e74c3c',
+                            '#f39c12',
+                            '#27ae60',
+                            '#9b59b6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // ROI Trend Chart
+        const roiCtx = document.getElementById('roiChart');
+        if (roiCtx) {
+            new Chart(roiCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['第1年', '第2年', '第3年', '第4年', '第5年'],
+                    datasets: [{
+                        label: '累计投入',
+                        data: [350, 600, 850, 1100, 1350],
+                        backgroundColor: chartColors.danger
+                    }, {
+                        label: '累计收益',
+                        data: [420, 840, 1260, 1680, 2100],
+                        backgroundColor: chartColors.success
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '万';
+                                }
+                            },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Pyramid level interaction
+        document.querySelectorAll('.pyramid-level').forEach(level => {
+            level.addEventListener('click', function() {
+                document.querySelectorAll('.pyramid-level').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
